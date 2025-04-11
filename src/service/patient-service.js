@@ -29,6 +29,10 @@ async function getAllPatients(){
 async function getPatientById(id){
   const patient=await patientRepository.get({_id: id});
 
+  if (!patient) {
+    throw new AppError("Patient not found with the given id.", StatusCodes.NOT_FOUND);
+  }
+
   return patient
 }
 

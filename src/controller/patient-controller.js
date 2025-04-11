@@ -1,9 +1,9 @@
 const { StatusCodes } = require("http-status-codes");
 const { PatientService } = require("../service");
 
-const { formatSuccess, formatError } = require("../util/common/formatResponse");
+const  formatSuccess  = require("../util/common/formatResponse");
 
-async function createPatient(req, res) {
+async function createPatient(req, res, next) {
   try {
     const patient = await PatientService.createPatient(req.body);
 
@@ -12,13 +12,12 @@ async function createPatient(req, res) {
       .json(formatSuccess("Patient created successfully", patient));
   } catch (error) {
     // console.log(error)
-    const errorResponse = formatError(error);
-
-    res.status(errorResponse.error.statusCode).json(errorResponse);
+    
+    next(error);
   }
 }
 
-async function getAllPatients(req, res){
+async function getAllPatients(req, res, next){
   try {
     const patients=await PatientService.getAllPatients();
 
@@ -28,26 +27,24 @@ async function getAllPatients(req, res){
       .json(formatSuccess(message, patients));
   } catch (error) {
     // console.log(error)
-    const errorResponse = formatError(error);
-
-    res.status(errorResponse.error.statusCode).json(errorResponse);
+    
+    next(error);
   }
 }
 
-async function getPatientById(req, res){
+async function getPatientById(req, res, next){
   try {
     const patient=await PatientService.getPatientById(req.params.id);
 
-    const message=patient.length===0?"No patient found in the system with the gven id":"Patient fetched successfully with the given id";
+    const message=patient?"Patient fetched successfully with the given id":"No patient found in the system with the given id";
     return res
       .status(StatusCodes.OK)
       .json(formatSuccess(message, patient));
 
   } catch (error) {
     // console.log(error)
-    const errorResponse = formatError(error);
-
-    res.status(errorResponse.error.statusCode).json(errorResponse);
+    
+    next(error);
   }
 }
 

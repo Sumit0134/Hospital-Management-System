@@ -3,14 +3,14 @@ const mongoose=require("mongoose");
 const patientSchema=new mongoose.Schema({
     name: {
         type: String,
-        required: true,
+        required: [true, "Name is required"],
         trim: true,
         match: [/^[A-Za-z\s]+$/, 'Please enter a valid name (only letters and spaces).']
     },
 
     email: {
         type: String,
-        required: true,
+        required: [true, "Email is required"],
         unique: true,
         trim: true,
         match: [/^\S+@\S+\.\S+$/, 'Please enter a valid email address'],
@@ -18,12 +18,12 @@ const patientSchema=new mongoose.Schema({
 
     password: {
         type: String,
-        required: true,
+        required: [true, "Password is required"],
     },
 
     phoneNumber: {
         type: String,
-        required: true,
+        required: [true, "Phone number is required"],
         match: [/^\d{10}$/, 'Phone number must be 10 digits'],
     },
 
@@ -34,18 +34,18 @@ const patientSchema=new mongoose.Schema({
 
     address: {
         type: String,
-        required: true,
+        required: [true, "Address is required"],
     },
 
     gender: {
         type: String,
         enum: ["Male", "Female", "Other"],
-        required: true,
+        required: [true, "Gender is required"],
     },
 
     age: {
         type: Number,
-        required: true,
+        required: [true, "Age is required"],
     }
 }, {timestamps: true})
 

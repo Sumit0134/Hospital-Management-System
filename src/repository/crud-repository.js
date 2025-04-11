@@ -25,7 +25,7 @@ class CrudRepository {
       return response;
     } catch (error) {
       throw new AppError(
-        error.message || "The requested resource does not exist.",
+       "The requested resource does not exist.",
         StatusCodes.NOT_FOUND
       );
     }

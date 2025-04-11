@@ -1,5 +1,5 @@
 const { StatusCodes } = require("http-status-codes");
-const { SuccessResponse, ErrorResponse } = require("./response");
+const { SuccessResponse } = require("./response");
 
 function formatSuccess(message = "Success", data = {}) {
   return {
@@ -9,17 +9,4 @@ function formatSuccess(message = "Success", data = {}) {
   };
 }
 
-function formatError(error) {
-  return {
-    ...ErrorResponse,
-    error: {
-      message: error.message || "Something went wrong.",
-      statusCode: error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
-    },
-  };
-}
-
-module.exports = {
-  formatSuccess,
-  formatError,
-};
+module.exports = formatSuccess;

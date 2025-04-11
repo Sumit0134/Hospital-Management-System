@@ -15,7 +15,7 @@ app.use(express.json());
 
 config.DatabaseConfig.connection();
 
-const apiRoutes=require("./route")
+const apiRoutes=require("./route");
 
 app.get("/", (req, res)=>{
     res.send("Welcome to the backend of Hospital Management System!");
