@@ -22,10 +22,18 @@ async function createPatient(data) {
 
 async function getAllPatients(){
   const patients=await patientRepository.getAll();
-  
+
   return patients;
+}
+
+async function getPatientById(id){
+  const patient=await patientRepository.get({_id: id});
+
+  return patient
 }
 
 module.exports = {
   createPatient,
+  getAllPatients,
+  getPatientById
 };
