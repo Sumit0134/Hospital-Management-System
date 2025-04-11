@@ -13,6 +13,8 @@ app.use(morgan("dev"));
 app.use(helmet());
 app.use(express.json());
 
+app.use(middleware.RateLimit);
+
 config.DatabaseConfig.connection();
 
 const apiRoutes=require("./route");
