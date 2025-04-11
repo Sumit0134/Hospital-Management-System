@@ -1,6 +1,7 @@
-const mongoose=require("mongoose");
+const mongoose = require("mongoose");
 
-const patientSchema=new mongoose.Schema({
+// Define the schema for a Patient
+const patientSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, "Name is required"],
@@ -47,6 +48,7 @@ const patientSchema=new mongoose.Schema({
         type: Number,
         required: [true, "Age is required"],
     }
-}, {timestamps: true})
+}, { timestamps: true }); // Automatically adds createdAt and updatedAt fields
 
-module.exports=mongoose.model("Patient", patientSchema);
+// Exporting the model based on the schema
+module.exports = mongoose.model("Patient", patientSchema);
