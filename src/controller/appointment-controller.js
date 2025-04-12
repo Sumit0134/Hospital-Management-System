@@ -59,7 +59,30 @@ async function cancelAppointmentById(req, res, next) {
         .json(formatError("Appointment not found.", StatusCodes.NOT_FOUND));
     }
 
-    return res.status(StatusCodes.OK).json(formatSuccess("Appointment cancelled successfully", appointment));
+    return res
+      .status(StatusCodes.OK)
+      .json(formatSuccess("Appointment cancelled successfully", appointment));
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function updateAppointmentById(req, res, next) {
+  try {
+    const appointment = await AppointmentService.updateAppointmentById(
+      req.params.id,
+      req.body
+    );
+
+    if (!appointment) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json(formatError("Appointment not found.", StatusCodes.NOT_FOUND));
+    }
+
+    return res
+      .status(StatusCodes.OK)
+      .json(formatSuccess("Appointment updated successfully", appointment));
   } catch (error) {
     next(error);
   }
@@ -70,4 +93,5 @@ module.exports = {
   getAllAppointments,
   getAppointmentById,
   cancelAppointmentById,
+  updateAppointmentById,
 };

@@ -10,34 +10,56 @@ async function createAppointment(data) {
   return appointment;
 }
 
-async function getAllAppointments(){
-  const appointments=await appointmentRepository.getAll();
+async function getAllAppointments() {
+  const appointments = await appointmentRepository.getAll();
 
   return appointments;
 }
 
-async function getAppointmentById(id){
-  const appointment=await appointmentRepository.get({_id: id});
+async function getAppointmentById(id) {
+  const appointment = await appointmentRepository.get({ _id: id });
 
-  if(!appointment){
-    throw new AppError("Appointment not found with the given id.", StatusCodes.NOT_FOUND)
+  if (!appointment) {
+    throw new AppError(
+      "Appointment not found with the given id.",
+      StatusCodes.NOT_FOUND
+    );
   }
 
   return appointment;
 }
 
-async function cancelAppointmentById(id){
-  const appointment=await appointmentRepository.get({_id: id});
+async function cancelAppointmentById(id) {
+  const appointment = await appointmentRepository.get({ _id: id });
 
-  if(!appointment){
+  if (!appointment) {
     return null;
   }
 
-  if(appointment.status==="cancelled" || appointment.status==="completed"){
-    throw new AppError(`Cannot cancel an appointment which is already ${appointment.status}.`);
+  if (
+    appointment.status === "cancelled" ||
+    appointment.status === "completed"
+  ) {
+    throw new AppError(
+      `Cannot cancel an appointment which is already ${appointment.status}.`
+    );
   }
 
-  const updatedAppointment=await appointmentRepository.update(id, {status: "cancelled"});
+  const cancelledAppointment = await appointmentRepository.update(id, {
+    status: "cancelled",
+  });
+
+  return cancelledAppointment;
+}
+
+async function updateAppointmentById(id, data) {
+  const appointment = await appointmentRepository.get({ _id: id });
+
+  if (!appointment) {
+    return null;
+  }
+
+  const updatedAppointment = await appointmentRepository.update(id, data);
 
   return updatedAppointment;
 }
@@ -46,5 +68,6 @@ module.exports = {
   createAppointment,
   getAllAppointments,
   getAppointmentById,
-  cancelAppointmentById
+  cancelAppointmentById,
+  updateAppointmentById
 };

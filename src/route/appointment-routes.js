@@ -12,4 +12,6 @@ router.get("/get-appointment-id/:id", AppointmentController.getAppointmentById);
 
 router.delete("/cancel-appointment-id/:id", AppointmentController.cancelAppointmentById);
 
+router.patch("/update-appointment-id/:id", AppointmentController.updateAppointmentById);
+
 module.exports=router
