@@ -3,8 +3,7 @@
  * Uses a predefined SuccessResponse object and extends it with custom message and data.
  */
 
-const { StatusCodes } = require("http-status-codes");
-const { SuccessResponse } = require("./response");
+const { SuccessResponse, ErrorResponse } = require("./response");
 
 /**
  * @param {string} message - A custom success message to return (default: "Success")
@@ -19,4 +18,15 @@ function formatSuccess(message = "Success", data = {}) {
   };
 }
 
-module.exports = formatSuccess; // Export for use in controllers
+function formatError(error, statusCode) {
+  return {
+    ...ErrorResponse,
+    success: false,
+    error: {
+      message: error,
+      statusCode
+    }
+  };
+}
+
+module.exports = { formatSuccess, formatError }; // Export for use in controllers
