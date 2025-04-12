@@ -81,6 +81,18 @@ const doctorSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+
+    // doctor's consulting charges
+    fee: {
+      type: Number,
+      required: [true, "Consultation fee is required."],
+      min: [100, "Fee must be at least ₹100"],
+      max: [5000, "Fee cannot exceed ₹5000"],
+      validate: {
+        validator: Number.isInteger,
+        message: "Fee must be a whole number",
+      },
+    },
   },
   { timestamps: true } // Automatically adds createdAt and updatedAt timestamps
 );
