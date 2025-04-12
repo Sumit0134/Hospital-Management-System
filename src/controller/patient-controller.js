@@ -1,6 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 const { PatientService } = require("../service");
-const formatSuccess = require("../util/common/formatResponse");
+const { formatSuccess } = require("../util/common/formatResponse");
 
 /**
  * Controller to create a new patient
@@ -26,13 +26,12 @@ async function getAllPatients(req, res, next) {
   try {
     const patients = await PatientService.getAllPatients();
 
-    const message = patients.length === 0
-      ? "No patients found in the system"
-      : "All patients fetched successfully";
+    const message =
+      patients.length === 0
+        ? "No patients found in the system"
+        : "All patients fetched successfully";
 
-    return res
-      .status(StatusCodes.OK)
-      .json(formatSuccess(message, patients));
+    return res.status(StatusCodes.OK).json(formatSuccess(message, patients));
   } catch (error) {
     next(error);
   }
@@ -50,9 +49,7 @@ async function getPatientById(req, res, next) {
       ? "Patient fetched successfully with the given id"
       : "No patient found in the system with the given id";
 
-    return res
-      .status(StatusCodes.OK)
-      .json(formatSuccess(message, patient));
+    return res.status(StatusCodes.OK).json(formatSuccess(message, patient));
   } catch (error) {
     next(error);
   }

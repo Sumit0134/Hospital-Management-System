@@ -1,7 +1,7 @@
 const { StatusCodes } = require("http-status-codes");
 const { DoctorService } = require("../service");
 
-const formatSuccess = require("../util/common/formatResponse");
+const {formatSuccess} = require("../util/common/formatResponse");
 
 /**
  * Creates a new doctor using the request body data.

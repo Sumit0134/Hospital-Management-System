@@ -7,7 +7,7 @@ const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, 
 
   // Limit each IP to 5 requests per 15-minute window
-  max: 5, 
+  max: 50, 
 
   // Custom response message when limit is exceeded
   message: {
